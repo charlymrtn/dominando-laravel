@@ -13,6 +13,11 @@
             {{session('info')}}
         </div>
     @endif
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+        </div>
+    @endif
     <table width="70%" border="1" class="text-center">
         <thead>
         <tr>

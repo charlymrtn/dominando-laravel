@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\Role;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -87,8 +89,15 @@ class UsuariosController extends Controller
      */
     public function edit(User $usuario)
     {
-        $roles = Role::all();
-        return view('usuarios.formulario',compact('usuario','roles'));
+        try {
+            $this->authorize($usuario);
+            $roles = Role::all();
+
+            return view('usuarios.formulario',compact('usuario','roles'));
+        } catch (AuthorizationException $e) {
+            return redirect()->route('usuarios.index')->with('error',$e->getMessage());
+        }
+
     }
 
     /**
