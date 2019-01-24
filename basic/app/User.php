@@ -37,6 +37,11 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isAdmin()
+    {
+        return $this->hasRoles(['admin']);
+    }
+
     public function role()
     {
         return $this->hasOne('App\Models\Role','id','role_id');

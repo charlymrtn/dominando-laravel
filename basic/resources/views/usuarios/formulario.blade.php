@@ -10,6 +10,11 @@
             {{session('info')}}
         </div>
     @endif
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+        </div>
+    @endif
     <form action="{{isset($usuario) ? route('usuarios.update',$usuario->id) : route('usuarios.store')}}" method="post">
         @csrf
         @if(isset($usuario))

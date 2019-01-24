@@ -7,10 +7,8 @@ use App\Models\Role;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
 {
@@ -22,7 +20,7 @@ class UsuariosController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','check.role:admin'])->only('index','show');
+        $this->middleware(['auth','check.role:admin'])->only('index','show','destroy');
     }
 
     /**
@@ -109,34 +107,42 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, User $usuario)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            //'email' => [
-            //    'required',
-            //    'string',
-            //    'email',
-            //    'max:255',
-            //    Rule::unique('users')->ignore($usuario->id)
-            //],
-            'email' => 'required|string|email|max:255|unique:users,email,'.$usuario->id,
-            'role_id' => 'required|integer|exists:roles,id'
-        ],[
-            'email.required' => 'el campo correo es awebo',
-            'email.unique' => 'ese correo ya esta en uso.',
-            'name.required' => 'el nombre es obligatorio',
-            'role_id.required' => 'el rol es awebo',
-            'role_id.exists' => 'el rol no existe'
-        ]);
+        try{
+            $this->authorize($usuario);
 
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput();
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                //'email' => [
+                //    'required',
+                //    'string',
+                //    'email',
+                //    'max:255',
+                //    Rule::unique('users')->ignore($usuario->id)
+                //],
+                'email' => 'required|string|email|max:255|unique:users,email,'.$usuario->id,
+                'role_id' => 'required|integer|exists:roles,id'
+            ],[
+                'email.required' => 'el campo correo es awebo',
+                'email.unique' => 'ese correo ya esta en uso.',
+                'name.required' => 'el nombre es obligatorio',
+                'role_id.required' => 'el rol es awebo',
+                'role_id.exists' => 'el rol no existe'
+            ]);
+
+            if ($validator->fails()){
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+            $data = $request->except('_token','_method');
+
+            $usuario->update($data);
+
+            return redirect()->route('usuarios.index')
+                ->with('info','el usuario fue editado correctamente :)');
+
+        }catch(AuthorizationException $e){
+            return redirect()->route('usuarios.show',$usuario->id)->with('error',$e->getMessage());
         }
-        $data = $request->except('_token','_method');
 
-        $usuario->update($data);
-
-        return redirect()->route('usuarios.index')
-            ->with('info','el usuario fue editado correctamente :)');
     }
 
     /**
@@ -147,9 +153,17 @@ class UsuariosController extends Controller
      */
     public function destroy(User $usuario)
     {
-        $usuario->delete();
+        try {
+            $this->authorize($usuario);
 
-        return redirect()->route('usuarios.index')
-            ->with('info','el usuario fue eliminado correctamente :)');
+            $usuario->delete();
+
+            return redirect()->route('usuarios.index')
+                ->with('info','el usuario fue eliminado correctamente :)');
+
+        } catch (AuthorizationException $e) {
+            return redirect()->route('usuarios.index')->with('error',$e->getMessage());
+        }
+
     }
 }
