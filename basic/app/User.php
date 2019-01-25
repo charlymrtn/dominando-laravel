@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Role','id','role_id');
     }
+
+    public function mensajes()
+    {
+        return $this->hasMany('App\Models\Mensaje','user_id','id');
+    }
 }

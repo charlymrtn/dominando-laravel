@@ -10,4 +10,9 @@ class Mensaje extends Model
     protected $table = 'mensajes';
 
     protected $fillable = ['nombre','correo','telefono','mensaje'];
+
+    public function usuario()
+    {
+        return $this->hasOne('App\User','id','user_id');
+    }
 }

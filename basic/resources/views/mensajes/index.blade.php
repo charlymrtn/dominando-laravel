@@ -21,19 +21,20 @@
         <tbody>
             @foreach($mensajes as $mensaje)
                 <tr>
+                    <td>{{$mensaje->id}}</td>
+
+                    @if($mensaje->usuario)
+                        <td><a href="{{route('usuarios.show',$mensaje->usuario->id)}}">{{$mensaje->usuario->name}}</a></td>
+                        <td>{{$mensaje->usuario->email}}</td>
+                    @else
+                        <td>{{$mensaje->nombre}}</td>
+                        <td>{{$mensaje->correo}}</td>
+                    @endif
+
                     <td>
                         <a href="{{route('mensajes.show',$mensaje->id)}}">
-                            {{$mensaje->id}}
+                            {{$mensaje->mensaje}}
                         </a>
-                    </td>
-                    <td>
-                        {{$mensaje->nombre}}
-                    </td>
-                    <td>
-                        {{$mensaje->correo}}
-                    </td>
-                    <td>
-                        {{$mensaje->mensaje}}
                     </td>
                     <td>
                         <a class="btn btn-info btn-sm" href="{{route('mensajes.edit',$mensaje->id)}}">

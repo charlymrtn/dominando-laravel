@@ -53,7 +53,18 @@ class MensajesControllerV2 extends Controller
     {
         $data = $request->except('_token');
 
-        Mensaje::create($data);
+        if (auth()->check())
+        {
+            $data = array_merge($data,[
+                'nombre' => auth()->user()->name,
+                'correo' => auth()->user()->email
+            ]);
+
+            auth()->user()->mensajes()->create($data);
+
+        }else{
+            Mensaje::create($data);
+        }
 
         return redirect()->route('mensajes.create')
             ->with('info','tu mensaje fue enviado correctamente :)');
