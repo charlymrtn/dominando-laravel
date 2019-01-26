@@ -36,7 +36,7 @@
                 {!! $errors->first('mensaje','<span class=error>:message</span>') !!}
             </label></p>
 
-        <input class="btn btn-primary" type="submit" value="{{isset($mensaje)?'editar':'guardar'}}">
+        <input class="btn btn-primary" type="submit" value="{{ isset($mensaje) ? 'editar' : 'guardar'}}">
     </form>
 @stop
 
