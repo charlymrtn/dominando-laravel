@@ -16,16 +16,19 @@
 
         @if(auth()->guest() || isset($mensaje))
             <p><label for="name">nombre
-                    <input class="form-control" type="text" name="nombre" value="{{isset($mensaje)? $mensaje->nombre : old('nombre')}}">
+                    <input class="form-control" type="text" name="nombre"
+                           value="{{isset($mensaje)? (isset($mensaje->usuario) ? $mensaje->usuario->name :$mensaje->nombre) : old('nombre')}}">
                     {!! $errors->first('nombre','<span class=error>:message</span>') !!}
                 </label></p>
             <p><label for="email">email
-                    <input class="form-control" type="email" name="correo" value="{{isset($mensaje)? $mensaje->correo : old('correo')}}">
+                    <input class="form-control" type="email" name="correo"
+                           value="{{isset($mensaje)? (isset($mensaje->usuario) ? $mensaje->usuario->email : $mensaje->correo) : old('correo')}}">
                     {!! $errors->first('correo','<span class=error>:message</span>') !!}
                 </label></p>
         @endif
         <p><label for="telefono">telefono
-                <input class="form-control" type="text" name="telefono" value="{{isset($mensaje)? $mensaje->telefono : old('telefono')}}">
+                <input class="form-control" type="text" name="telefono"
+                       value="{{isset($mensaje)? $mensaje->telefono : old('telefono')}}">
                 {!! $errors->first('telefono','<span class=error>:message</span>') !!}
             </label></p>
         <p><label for="mensaje">mensaje
