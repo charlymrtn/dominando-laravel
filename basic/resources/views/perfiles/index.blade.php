@@ -6,7 +6,7 @@
     <h1>Hola {{Auth::user()->name}}</h1>
     <h2>Todos los perfiles</h2>
     <p>
-        <a href="{{route('perfiles.create')}}" class="btn btn-primary">Perfil Rol</a>
+        <a href="{{route('perfiles.create')}}" class="btn btn-primary">Crear Perfil</a>
     </p>
     @if(session()->has('info'))
         <div class="alert alert-success">

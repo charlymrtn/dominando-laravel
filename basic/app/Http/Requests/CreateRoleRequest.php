@@ -24,8 +24,8 @@ class CreateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'key' => 'required|string|min:3|max:10',
-            'name' => 'required|string|min:10|max:20',
+            'key' => 'required|string|min:1|max:5',
+            'name' => 'required|string|min:5|max:10',
             'description' => 'nullable|string|min:10|max:40'
         ];
     }
@@ -41,7 +41,7 @@ class CreateRoleRequest extends FormRequest
             'key.required' => 'el campo llave es awebo',
             'name.required' => 'el nombre es obligatorio',
             'key.min' => 'la llave debe ser mas larga',
-            'name.min' => 'la llave debe ser mas larga',
+            'name.min' => 'el nombre debe ser mas larga',
             'description.min' => 'la llave debe ser mas larga',
         ];
     }

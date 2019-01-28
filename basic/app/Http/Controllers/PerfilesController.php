@@ -52,7 +52,7 @@ class PerfilesController extends Controller
         //
         $data = $request->except('_token');
 
-        Role::create($data);
+        Perfil::create($data);
 
         return redirect()->route('perfiles.index')
             ->with('info','el perfil fue creado correctamente :)');
