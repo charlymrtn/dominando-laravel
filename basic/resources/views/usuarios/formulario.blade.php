@@ -15,6 +15,11 @@
             {{session('error')}}
         </div>
     @endif
+    @if($errors->has('perfiles'))
+        <div class="alert alert-danger">
+            {{$errors->first('perfiles')}}
+        </div>
+    @endif
     <form action="{{isset($usuario) ? route('usuarios.update',$usuario->id) : route('usuarios.store')}}" method="post">
         @csrf
         @if(isset($usuario))
@@ -28,8 +33,8 @@
 
                 @if ($errors->has('name'))
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
+                        <strong>{{ $errors->first('name') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
@@ -42,8 +47,8 @@
 
                 @if ($errors->has('email'))
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
@@ -52,20 +57,44 @@
             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
             <div class="col-md-6">
-                {{--<input id="role" type="text" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" value="{{ old('role') }}" required>--}}
                 <select name="role_id" id="role_id" class="form-control{{ $errors->has('role_id') ? ' is-invalid' : '' }}" required>
                     <option value="" disabled>Selecciona una opción</option>
                     @foreach($roles as $role)
                         <option value="{{$role->id}}" {{ isset($usuario) && $usuario->role_id == $role->id ? 'selected' : ''}}>{{$role->name}}</option>
                     @endforeach
                 </select>
+
                 @if ($errors->has('role_id'))
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('role_id') }}</strong>
-                                    </span>
+                        <strong>{{ $errors->first('role_id') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
+
+        <div class="form-group row">
+            <label for="perfiles" class="col-md-4 col-form-label text-md-right">{{ __('Perfiles') }}</label>
+
+            <div class="col-md-6">
+                @foreach($perfiles as $id => $name)
+                    <div class="form-check">
+                        <input class="form-check-input" value="{{$id}}" name="perfiles[]" type="checkbox" id="gridCheck{{$id}}"
+                            {{isset($usuario) && $usuario->hasPerfil($id) ? 'checked' : ''}}>
+                        <label class="form-check-label" for="gridCheck{{$id}}">
+                            {{$name}}
+                        </label>
+                    </div>
+                @endforeach
+
+                @if ($errors->has('perfiles'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('perfiles') }}</strong>
+                    </span>
+                @endif
+            </div>
+
+        </div>
+
         @if(!isset($usuario))
             <div class="form-group row">
                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

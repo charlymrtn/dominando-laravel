@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Models\Perfil;
 use App\Models\Role;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -43,7 +44,9 @@ class UsuariosController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('usuarios.formulario',compact('roles'));
+        $perfiles = Perfil::pluck('name','id');
+
+        return view('usuarios.formulario',compact('roles','perfiles'));
     }
 
     /**
@@ -56,12 +59,17 @@ class UsuariosController extends Controller
     {
         $data = $request->except('_token');
 
-        User::create([
+        $usuario = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role_id' => $data['role_id']
         ]);
+
+        foreach ($data['perfiles'] as $perfil)
+        {
+            $usuario->perfiles()->attach($perfil);
+        }
 
         return redirect()->route('usuarios.index')
             ->with('info','el usuario fue creado correctamente :)');
@@ -90,8 +98,9 @@ class UsuariosController extends Controller
         try {
             $this->authorize($usuario);
             $roles = Role::all();
+            $perfiles = Perfil::pluck('name','id');
 
-            return view('usuarios.formulario',compact('usuario','roles'));
+            return view('usuarios.formulario',compact('usuario','roles','perfiles'));
         } catch (AuthorizationException $e) {
             return redirect()->route('usuarios.index')->with('error',$e->getMessage());
         }
@@ -120,21 +129,32 @@ class UsuariosController extends Controller
                 //    Rule::unique('users')->ignore($usuario->id)
                 //],
                 'email' => 'required|string|email|max:255|unique:users,email,'.$usuario->id,
-                'role_id' => 'required|integer|exists:roles,id'
+                'role_id' => 'required|integer|exists:roles,id',
+                'perfiles' => 'required|array|min:1|exists:perfiles,id'
             ],[
                 'email.required' => 'el campo correo es awebo',
                 'email.unique' => 'ese correo ya esta en uso.',
                 'name.required' => 'el nombre es obligatorio',
                 'role_id.required' => 'el rol es awebo',
-                'role_id.exists' => 'el rol no existe'
+                'role_id.exists' => 'el rol no existe',
+                'perfiles.required' => 'los perfiles son necesarios.',
+                'perfiles.min' => 'mínimo es un perfil.',
+                'perfiles.exists' => 'ese perfil no esta registrado'
             ]);
 
             if ($validator->fails()){
+
                 return redirect()->back()->withErrors($validator)->withInput();
             }
             $data = $request->except('_token','_method');
 
             $usuario->update($data);
+            $usuario->perfiles()->detach();
+
+            foreach ($data['perfiles'] as $perfil)
+            {
+                $usuario->perfiles()->attach($perfil);
+            }
 
             return redirect()->route('usuarios.index')
                 ->with('info','el usuario fue editado correctamente :)');

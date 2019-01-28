@@ -27,7 +27,8 @@ class CreateUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:3|confirmed',
-            'role_id' => 'required|integer|exists:roles,id'
+            'role_id' => 'required|integer|exists:roles,id',
+            'perfiles' => 'required|array|min:1|exists:perfiles,id'
         ];
     }
 
@@ -41,6 +42,9 @@ class CreateUserRequest extends FormRequest
             'password.required' => 'el password es obligatorio',
             'password.confirmed' => 'el password no coincide',
             'password.min' => 'el password tiene que ser mas largo',
+            'perfiles.required' => 'los perfiles son necesarios.',
+            'perfiles.min' => 'mínimo es un perfil.',
+            'perfiles.exists' => 'ese perfil no esta registrado'
         ];
     }
 }

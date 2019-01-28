@@ -37,6 +37,16 @@ class User extends Authenticatable
         return false;
     }
 
+    public function hasPerfil($perfilID)
+    {
+        foreach ($this->perfiles as $perfil)
+        {
+            if ($perfil->id === $perfilID) return true;
+        }
+
+        return false;
+    }
+
     public function isAdmin()
     {
         return $this->hasRoles(['admin']);

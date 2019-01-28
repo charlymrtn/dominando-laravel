@@ -25,6 +25,7 @@
             <th>Nombre</th>
             <th>Correo</th>
             <th>Rol</th>
+            <th>Perfiles</th>
             <th colspan="2">Acciones</th>
         </tr>
         </thead>
@@ -44,6 +45,13 @@
                     </td>
                     <td>
                         {{$usuario->role->name}}
+                    </td>
+                    <td>
+                        <ul class="list-group">
+                            @foreach($usuario->perfiles as $perfil)
+                                <li class="list-group-item">{{$perfil->name}}</li>
+                            @endforeach
+                        </ul>
                     </td>
                     <td>
                         <a class="btn btn-info btn-sm" href="{{route('usuarios.edit',$usuario->id)}}">
