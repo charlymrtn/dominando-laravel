@@ -30,6 +30,10 @@ Route::resource('roles','RolesController')->parameters([
     'roles' => 'role'
 ]);
 
+Route::resource('perfiles','PerfilesController')->parameters([
+    'perfiles' => 'perfil'
+]);
+
 Route::get('login','Auth\LoginController@showLoginForm')->name('login');
 Route::post('login','Auth\LoginController@login')->name('login.post');
 Route::get('register','Auth\RegisterController@showRegistrationForm')->name('register');

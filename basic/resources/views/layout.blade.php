@@ -46,6 +46,9 @@
                         <li class="nav-item {{active('roles*')}}">
                             <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
                         </li>
+                            <li class="nav-item {{active('perfiles*')}}">
+                                <a class="nav-link" href="{{route('perfiles.index')}}">Perfiles</a>
+                            </li>
                     @endif
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

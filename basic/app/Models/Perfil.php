@@ -14,4 +14,9 @@ class Perfil extends Model
         'name',
         'description'
     ];
+
+    public function usuarios()
+    {
+        return $this->belongsToMany('App\User','perfil_usuario','perfil_id','user_id');
+    }
 }

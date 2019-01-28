@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Mensaje','user_id','id');
     }
+
+    public function perfiles()
+    {
+        return $this->belongsToMany('App\Models\Perfil','perfil_usuario','user_id','perfil_id');
+    }
 }
