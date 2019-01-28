@@ -8,7 +8,6 @@ use App\Models\Role;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
 
@@ -60,12 +59,7 @@ class UsuariosController extends Controller
     {
         $data = $request->except('_token');
 
-        $usuario = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id' => $data['role_id']
-        ]);
+        $usuario = User::create($data);
 
         foreach ($data['perfiles'] as $perfil)
         {
