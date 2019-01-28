@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateRoleRequest;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class PerfilesController extends Controller
 {
@@ -79,7 +80,7 @@ class PerfilesController extends Controller
     public function edit(Perfil $perfil)
     {
         //
-        return view('roles.formulario',compact('perfil'));
+        return view('perfiles.formulario',compact('perfil'));
     }
 
     /**
@@ -109,9 +110,19 @@ class PerfilesController extends Controller
     public function destroy(Perfil $perfil)
     {
         //
-        $perfil->delete();
+        try{
+            $perfil->delete();
 
-        return redirect()->route('perfiles.index')
-            ->with('info','el perfil fue eliminado correctamente :)');
+            return redirect()->route('perfiles.index')
+                ->with('info','el perfil fue eliminado correctamente :)');
+
+        }catch (QueryException $e){
+            if($e->getCode() == '23000'){
+                return back()->with('error','imposible borrar el perfil debido a que hay usuarios que pertenecen a este perfil');
+            }
+
+            return back()->with('error',$e->getMessage().' '.$e->getMessage());
+        }
+
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 class UsuariosController extends Controller
 {
@@ -21,7 +22,7 @@ class UsuariosController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','check.role:admin'])->only('index','show','destroy');
+        $this->middleware(['auth','check.role:admin'])->only('index','show','edit','update');
     }
 
     /**
@@ -149,12 +150,13 @@ class UsuariosController extends Controller
             $data = $request->except('_token','_method');
 
             $usuario->update($data);
-            $usuario->perfiles()->detach();
-
-            foreach ($data['perfiles'] as $perfil)
-            {
-                $usuario->perfiles()->attach($perfil);
-            }
+            $usuario->perfiles()->sync($data['perfiles']);
+            //$usuario->perfiles()->detach();
+            //
+            //foreach ($data['perfiles'] as $perfil)
+            //{
+            //    $usuario->perfiles()->attach($perfil);
+            //}
 
             return redirect()->route('usuarios.index')
                 ->with('info','el usuario fue editado correctamente :)');
@@ -174,15 +176,23 @@ class UsuariosController extends Controller
     public function destroy(User $usuario)
     {
         try {
-            $this->authorize($usuario);
+            //$this->authorize($usuario);
 
-            $usuario->delete();
+            if (auth()->user()->isAdmin()){
+                $usuario->perfiles()->detach();
+                $usuario->delete();
+                return redirect()->route('usuarios.index')
+                    ->with('info','el usuario fue eliminado correctamente :)');
+            }else{
+                return redirect()->route('usuarios.index')->with('error','solo los administradores pueden eliminar usuarios');
+            }
 
-            return redirect()->route('usuarios.index')
-                ->with('info','el usuario fue eliminado correctamente :)');
+        } catch (QueryException $e) {
+            if($e->getCode() == '23000'){
+                return back()->with('error','imposible borrar el usuario ya que tiene dependencias con perfiles');
+            }
 
-        } catch (AuthorizationException $e) {
-            return redirect()->route('usuarios.index')->with('error',$e->getMessage());
+            return back()->with('error',$e->getMessage().' '.$e->getMessage());
         }
 
     }

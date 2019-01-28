@@ -39,27 +39,27 @@
                         <li class="nav-item {{active('mensajes*')}}">
                             <a class="nav-link" href="{{route('mensajes.index')}}">Mensajes</a>
                         </li>
-                    @if(Auth::user()->hasRoles(['admin']))
-                        <li class="nav-item {{active('usuarios*')}}">
-                            <a class="nav-link" href="{{route('usuarios.index')}}">Usuarios</a>
-                        </li>
-                        <li class="nav-item {{active('roles*')}}">
-                            <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
-                        </li>
-                            <li class="nav-item {{active('perfiles*')}}">
-                                <a class="nav-link" href="{{route('perfiles.index')}}">Perfiles</a>
+                        @if(Auth::user()->hasRoles(['admin']))
+                            <li class="nav-item {{active('usuarios*')}}">
+                                <a class="nav-link" href="{{route('usuarios.index')}}">Usuarios</a>
                             </li>
-                    @endif
-                        <li class="nav-item dropdown">
+                            <li class="nav-item {{active('roles*')}}">
+                                <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
+                            </li>
+                                <li class="nav-item {{active('perfiles*')}}">
+                                    <a class="nav-link" href="{{route('perfiles.index')}}">Perfiles</a>
+                                </li>
+                        @endif
+                        <li class="nav-item dropdown pull-right">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{auth()->user()->name}}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('usuarios.edit',auth()->user()->id)}}">Mi Perfil</a>
                                 <form style="display: inline;" action="{{route('logout')}}" method="post">
                                     @csrf
                                     <input style="color: darkgreen" class="btn btn-link" type="submit" value="Salir">
                                 </form>
-                                <a class="dropdown-item" href="{{route('usuarios.edit',auth()->user()->id)}}">Mi Perfil</a>
                             </div>
                         </li>
 

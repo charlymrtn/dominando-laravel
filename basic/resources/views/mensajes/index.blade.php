@@ -40,6 +40,8 @@
                         <a class="btn btn-info btn-sm" href="{{route('mensajes.edit',$mensaje->id)}}">
                             Editar
                         </a>
+                    </td>
+                    <td>
                         <form method="post" style="display: inline" action="{{route('mensajes.destroy',$mensaje->id)}}">
                             @csrf
                             @method('delete')

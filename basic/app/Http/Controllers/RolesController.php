@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateRoleRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class RolesController extends Controller
 {
@@ -105,9 +106,18 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         //
-        $role->delete();
+        try{
+            $role->delete();
 
-        return redirect()->route('roles.index')
-            ->with('info','el rol fue eliminado correctamente :)');
+            return redirect()->route('roles.index')
+                ->with('info','el rol fue eliminado correctamente :)');
+
+        }catch (QueryException $e){
+            if($e->getCode() == '23000'){
+                return back()->with('error','imposible borrar el rol debido a que hay usuarios que pertenecen a este rol');
+            }
+
+            return back()->with('error',$e->getMessage().' '.$e->getMessage());
+        }
     }
 }
