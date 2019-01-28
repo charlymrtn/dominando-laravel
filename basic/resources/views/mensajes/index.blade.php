@@ -15,6 +15,7 @@
             <th>Nombre</th>
             <th>Correo</th>
             <th>Mensaje</th>
+            <th>Notas</th>
             <th colspan="2">Acciones</th>
         </tr>
         </thead>
@@ -35,6 +36,13 @@
                         <a href="{{route('mensajes.show',$mensaje->id)}}">
                             {{$mensaje->mensaje}}
                         </a>
+                    </td>
+                    <td>
+                        <ul class="list-group">
+                            @foreach($mensaje->notas as $nota)
+                                <li class="list-group-item">{{$nota->body}}</li>
+                            @endforeach
+                        </ul>
                     </td>
                     <td>
                         <a class="btn btn-info btn-sm" href="{{route('mensajes.edit',$mensaje->id)}}">

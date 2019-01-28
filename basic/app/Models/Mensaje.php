@@ -15,4 +15,9 @@ class Mensaje extends Model
     {
         return $this->hasOne('App\User','id','user_id');
     }
+
+    public function notas()
+    {
+        return $this->hasMany('App\Models\Nota','mensaje_id','id');
+    }
 }
