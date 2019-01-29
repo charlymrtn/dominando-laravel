@@ -67,7 +67,9 @@
         <input class="btn btn-primary" type="submit" value="{{ isset($mensaje) ? 'editar' : 'guardar'}}">
     </form>
 
-    @include('layouts.modal')
+    @if(isset($mensaje))
+        @include('layouts.modal')
+    @endif
 @stop
 
 

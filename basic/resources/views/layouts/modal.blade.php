@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{route('notas.store',isset($mensaje) ? $mensaje->id : $usuario->id)}}" method="post">
+            <form action="{{route('notas.attach',isset($mensaje) ? $mensaje->id : $usuario->id)}}" method="post">
                 @csrf
                 <input type="hidden" name="model" id="model" value="{{isset($mensaje)?'mensajes':'users'}}">
                 <div class="modal-body">

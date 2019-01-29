@@ -117,7 +117,7 @@ class RolesController extends Controller
                 return back()->with('error','imposible borrar el rol debido a que hay usuarios que pertenecen a este rol');
             }
 
-            return back()->with('error',$e->getMessage().' '.$e->getMessage());
+            return back()->with('error',$e->getCode().' '.$e->getMessage());
         }
     }
 }

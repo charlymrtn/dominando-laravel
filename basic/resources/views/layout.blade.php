@@ -9,11 +9,11 @@
 <body>
 
 <header>
-    <?php
+    @php
         function active($url){
             return request()->is($url) ? 'active' : '';
-        }
-    ?>
+            }
+    @endphp
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <a class="navbar-brand" href="{{route('index')}}">Inicio</a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
@@ -23,12 +23,7 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    {{--<li class="nav-item active">--}}
-                        {{--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
-                    {{--</li>--}}
-                    {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="{{route('index')}}">Inicio</a>--}}
-                    {{--</li>--}}
+
                     <li class="nav-item {{active('saludos/*')}}">
                         <a class="nav-link" href="{{route('saludo','carlos')}}">Saludos</a>
                     </li>
@@ -40,15 +35,19 @@
                             <a class="nav-link" href="{{route('mensajes.index')}}">Mensajes</a>
                         </li>
                         @if(Auth::user()->hasRoles(['admin']))
-                            <li class="nav-item {{active('usuarios*')}}">
-                                <a class="nav-link" href="{{route('usuarios.index')}}">Usuarios</a>
-                            </li>
-                            <li class="nav-item {{active('roles*')}}">
-                                <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
-                            </li>
-                                <li class="nav-item {{active('perfiles*')}}">
-                                    <a class="nav-link" href="{{route('perfiles.index')}}">Perfiles</a>
-                                </li>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Opciones
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item {{active('usuarios*')}}" href="{{route('usuarios.index')}}">Usuarios</a>
+                                    <a class="dropdown-item {{active('roles*')}}" href="{{route('roles.index')}}">Roles</a>
+                                    <a class="dropdown-item {{active('perfiles*')}}" href="{{route('perfiles.index')}}">Perfiles</a>
+                                    <a class="dropdown-item {{active('notas*')}}" href="{{route('notas.index')}}">Notas</a>
+                                    {{--<a class="dropdown-item {{active('zonas*')}}" href="{{route('zonas.index')}}">Zonas</a>--}}
+                                </div>
+                            </div>
                         @endif
                         <li class="nav-item dropdown pull-right">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,7 +70,6 @@
                             <a class="nav-link" href="{{route('register')}}">Registrarse</a>
                         </li>
 
-                        {{--<a class="{{active('register')}}" href="{{route('register.show')}}">Registrarse</a>--}}
                     @endauth
                 </ul>
             </div>
@@ -85,5 +83,8 @@
 
 {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--}}
 <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+
+@include('layouts.js')
+
 </body>
 </html>

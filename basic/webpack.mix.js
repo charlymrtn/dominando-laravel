@@ -12,11 +12,14 @@ const mix = require('laravel-mix');
  */
 
 mix.styles([
-    'node_modules/bootstrap/dist/css/bootstrap.css'
+    'node_modules/bootstrap/dist/css/bootstrap.css',
+    'node_modules/bootstrap-select/dist/css/bootstrap-select.css'
 ],'public/css/app.css')
     .scripts([
         'node_modules/jquery/dist/jquery.js',
+        'node_modules/popper.js/dist/umd/popper.js',
         'node_modules/bootstrap/dist/js/bootstrap.js',
+        'node_modules/bootstrap-select/dist/js/bootstrap-select.js',
         'resources/js/custom.js'
     ],'public/js/app.js');
     //.sass('resources/sass/app.scss', 'public/css');

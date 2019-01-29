@@ -15,4 +15,17 @@ class Nota extends Model
     {
         return $this->morphTo();
     }
+
+    public function getEntidadTipoAttribute()
+    {
+        return collect(explode('\\',$this->notable_type))->last();
+
+    }
+
+    public function entidad()
+    {
+        return $this->hasOne($this->notable_type,'id','notable_id');
+    }
+
+
 }

@@ -20,4 +20,14 @@ class Mensaje extends Model
     {
         return $this->morphMany('App\Models\Nota','notable','notable_type','notable_id','id');
     }
+
+    public function getNameAttribute()
+    {
+        return $this->nombre;
+    }
+
+    public function getEmailAttribute()
+    {
+        return $this->correo;
+    }
 }
