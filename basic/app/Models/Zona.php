@@ -15,4 +15,15 @@ class Zona extends Model
     {
         return $this->morphTo();
     }
+
+    public function getEntidadTipoAttribute()
+    {
+        return collect(explode('\\',$this->zonable_type))->last();
+
+    }
+
+    public function entidad()
+    {
+        return $this->belongsTo($this->notable_type,'zonable_id','id');
+    }
 }

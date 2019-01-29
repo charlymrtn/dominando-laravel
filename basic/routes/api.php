@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/mensajes','ApiController@mensajes')->name('api.mensajes.index');
 Route::get('/users','ApiController@users')->name('api.usuarios.index');
+Route::get('/roles','ApiController@roles')->name('api.roles.index');
+Route::get('/perfiles','ApiController@perfiles')->name('api.perfiles.index');

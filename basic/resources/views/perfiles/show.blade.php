@@ -4,7 +4,7 @@
 
 @section('contenido')
     @if($perfil)
-        <h1>Rol {{$perfil->id}}</h1>
+        <h1>Perfil {{$perfil->id}}</h1>
         <h2>{{$perfil->key}}</h2>
         <h3>{{$perfil->name}}</h3>
         <p>{{$perfil->description}}</p>

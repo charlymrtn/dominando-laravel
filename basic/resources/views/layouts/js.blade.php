@@ -15,16 +15,17 @@
 
                 option = '';
                 texto = '';
-
                 $.each( result, function( key, entity ){
-                    if (entidad === 'mensajes')
-                    {
-                        texto = 'Mensaje de '+entity.nombre;
+                    if (entidad === 'mensajes') {
+                        texto = 'Mensaje de ' + entity.nombre;
+                    }else if(entidad === 'perfiles'){
+                        texto = entity.name;
+                    }else if(entidad === 'roles'){
+                        texto = 'Rol '+entity.name;
                     }else{
                         texto = 'Usuario '+entity.name;
                     }
                     option += '<option value="'+entity.id+'">'+texto+'</option>';
-                    console.log(option);
                 });
 
                 $('.selectpicker').append(option);

@@ -24,7 +24,7 @@ class Nota extends Model
 
     public function entidad()
     {
-        return $this->hasOne($this->notable_type,'id','notable_id');
+        return $this->belongsTo($this->notable_type,'notable_id','id');
     }
 
 

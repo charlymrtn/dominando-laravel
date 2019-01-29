@@ -29,9 +29,17 @@
                 </label>
             </p>
             <p>
-                <label for="identificador">Identificador
-                    <input class="form-control" type="text" name="identificador" value="{{$nota->notable_id}}" readonly>
-                </label>
+                <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$nota->entidad_tipo}} {{$nota->entidad->id}}</h5>
+                            <p class="card-text">{{$nota->entidad->name}}</p>
+                            <p class="card-text">{{$nota->entidad->email}}</p>
+                            @if($nota->entidad_tipo == 'Mensaje')
+                                <p class="card-text">{{$nota->entidad->mensaje}}</p>
+                            @endif
+                            <a href="{{route($nota->entidad_tipo == 'Mensaje' ? 'mensajes.show' : 'usuarios.show',$nota->entidad->id)}}" class="btn btn-primary">Ver Entidad</a>
+                        </div>
+                </div>
             </p>
         @else
             <p>

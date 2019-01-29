@@ -17,8 +17,8 @@ class CreateModelsZonasTable extends Migration
             $table->increments('id');
             $table->string('key');
             $table->string('name');
-            $table->unsignedInteger('notable_id');
-            $table->string('notable_type');
+            $table->unsignedInteger('zonable_id');
+            $table->string('zonable_type');
             $table->timestamps();
         });
     }

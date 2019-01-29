@@ -45,7 +45,7 @@
                                     <a class="dropdown-item {{active('roles*')}}" href="{{route('roles.index')}}">Roles</a>
                                     <a class="dropdown-item {{active('perfiles*')}}" href="{{route('perfiles.index')}}">Perfiles</a>
                                     <a class="dropdown-item {{active('notas*')}}" href="{{route('notas.index')}}">Notas</a>
-                                    {{--<a class="dropdown-item {{active('zonas*')}}" href="{{route('zonas.index')}}">Zonas</a>--}}
+                                    <a class="dropdown-item {{active('zonas*')}}" href="{{route('zonas.index')}}">Zonas</a>
                                 </div>
                             </div>
                         @endif

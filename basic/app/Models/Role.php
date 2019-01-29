@@ -19,4 +19,9 @@ class Role extends Model
     {
         return $this->hasMany('App\User','role_id','id');
     }
+
+    public function zonas()
+    {
+        return $this->morphMany('App\Models\Zona','zonable','zonable_type','zonable_id','id');
+    }
 }
