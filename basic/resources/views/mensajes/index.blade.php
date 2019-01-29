@@ -15,7 +15,7 @@
             <th>Nombre</th>
             <th>Correo</th>
             <th>Mensaje</th>
-            <th>Notas</th>
+            <th>Número de notas</th>
             <th colspan="2">Acciones</th>
         </tr>
         </thead>
@@ -38,11 +38,7 @@
                         </a>
                     </td>
                     <td>
-                        <ul class="list-group">
-                            @foreach($mensaje->notas as $nota)
-                                <li class="list-group-item">{{$nota->body}}</li>
-                            @endforeach
-                        </ul>
+                        {{$mensaje->notas->count()}}
                     </td>
                     <td>
                         <a class="btn btn-info btn-sm" href="{{route('mensajes.edit',$mensaje->id)}}">

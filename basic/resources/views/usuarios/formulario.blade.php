@@ -5,6 +5,15 @@
 @section('contenido')
     <h1>{{isset($usuario) ? "Editar usuario $usuario->name" : 'Crear Usuario'}}</h1>
     <h2>{{isset($usuario) ? 'formato de edición' : 'Usuarios'}}</h2>
+
+    @if(isset($usuario))
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
+            Agregar nota
+        </button>
+        <br>
+    @endif
+
     @if(session()->has('info'))
         <div class="alert alert-success">
             {{session('info')}}
@@ -20,6 +29,7 @@
             {{$errors->first('perfiles')}}
         </div>
     @endif
+
     <form action="{{isset($usuario) ? route('usuarios.update',$usuario->id) : route('usuarios.store')}}" method="post">
         @csrf
         @if(isset($usuario))
@@ -126,5 +136,16 @@
                 </button>
             </div>
         </div>
+        <br>
+        @if(isset($usuario))
+            <div class="form-group row mb-0">
+                <div class="col-md-6 offset-md-4">
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addNoteModal">
+                        Agregar nota
+                    </button>
+                </div>
+            </div>
+        @endif
     </form>
+    @include('layouts.modal')
 @stop

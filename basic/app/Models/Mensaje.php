@@ -18,6 +18,6 @@ class Mensaje extends Model
 
     public function notas()
     {
-        return $this->hasMany('App\Models\Nota','mensaje_id','id');
+        return $this->morphMany('App\Models\Nota','notable','notable_type','notable_id','id');
     }
 }

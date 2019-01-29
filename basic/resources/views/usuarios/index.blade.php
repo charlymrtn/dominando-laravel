@@ -26,6 +26,7 @@
             <th>Correo</th>
             <th>Rol</th>
             <th>Perfiles</th>
+            <th>Notas</th>
             <th colspan="2">Acciones</th>
         </tr>
         </thead>
@@ -52,6 +53,9 @@
                                 <li class="list-group-item">{{$perfil->name}}</li>
                             @endforeach
                         </ul>
+                    </td>
+                    <td>
+                        {{$usuario->notas->count()}}
                     </td>
                     <td>
                         <a class="btn btn-info btn-sm" href="{{route('usuarios.edit',$usuario->id)}}">

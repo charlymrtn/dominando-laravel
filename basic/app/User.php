@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Perfil','perfil_usuario','user_id','perfil_id');
     }
+
+    public function notas()
+    {
+        return $this->morphMany('App\Models\Nota','notable','notable_type','notable_id','id');
+    }
 }

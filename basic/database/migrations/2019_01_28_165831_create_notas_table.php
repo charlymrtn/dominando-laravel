@@ -16,8 +16,9 @@ class CreateNotasTable extends Migration
         Schema::create('notas', function (Blueprint $table) {
             $table->increments('id');
             $table->text('body');
-            $table->unsignedInteger('mensaje_id');
-            $table->foreign('mensaje_id')->references('id')->on('mensajes');
+            $table->unsignedInteger('notable_id');
+            $table->string('notable_type');
+
             $table->timestamps();
         });
     }

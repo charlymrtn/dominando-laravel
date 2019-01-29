@@ -28,6 +28,24 @@
             @endforeach
             </tbody>
         </table>
+        <br>
+        <h4>Notas del usuario {{$usuario->name}}</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nota</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($usuario->notas as $nota)
+                <tr>
+                    <th scope="row">{{$nota->id}}</th>
+                    <td>{{$nota->body}}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
 
         @can('edit',$usuario)
             <a href="{{route('usuarios.edit',$usuario->id)}}" class="btn btn-primary">Editar</a>

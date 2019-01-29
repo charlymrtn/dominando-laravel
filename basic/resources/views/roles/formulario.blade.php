@@ -5,9 +5,18 @@
 @section('contenido')
     <h1>{{isset($role) ? "Editar rol $role->name" : 'Crear Rol'}}</h1>
     <h2>{{isset($role) ? 'formato de edición' : 'Roles'}}</h2>
-    @if(session()->has('info') && request()->route()->named('roles.create'))
-        <h1>{{session('info')}}</h1>
+
+    @if(session()->has('info'))
+        <div class="alert alert-success">
+            {{session('info')}}
+        </div>
     @endif
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+        </div>
+    @endif
+
     <form action="{{isset($role) ? route('roles.update',$role->id) : route('roles.store')}}" method="post">
         @csrf
         @if(isset($role))

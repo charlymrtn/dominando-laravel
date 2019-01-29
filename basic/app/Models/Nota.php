@@ -11,8 +11,8 @@ class Nota extends Model
 
     protected $fillable = ['body'];
 
-    public function mensaje()
+    public function notable()
     {
-        return $this->belongsTo('App\Models\Mensaje','id','mensaje_id');
+        return $this->morphTo();
     }
 }

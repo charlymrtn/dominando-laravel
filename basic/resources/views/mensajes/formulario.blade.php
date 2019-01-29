@@ -5,9 +5,37 @@
 @section('contenido')
     <h1>{{isset($mensaje) ? "Editar mensaje $mensaje->id" : 'Zona de contacto'}}</h1>
     <h2>{{isset($mensaje) ? 'formato de edición' : 'escribeme'}}</h2>
-    @if(session()->has('info') && request()->route()->named('mensajes.create'))
-        <h1>{{session('info')}}</h1>
+
+    @if(isset($mensaje))
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
+            Agregar nota
+        </button>
+        <br>
     @endif
+
+    @if(session()->has('info'))
+        <div class="alert alert-success">
+            {{session('info')}}
+        </div>
+    @endif
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <br>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{isset($mensaje) ? route('mensajes.update',$mensaje->id) : route('mensajes.store')}}" method="post">
         @csrf
         @if(isset($mensaje))
@@ -38,6 +66,8 @@
 
         <input class="btn btn-primary" type="submit" value="{{ isset($mensaje) ? 'editar' : 'guardar'}}">
     </form>
+
+    @include('layouts.modal')
 @stop
 
 
