@@ -4,7 +4,7 @@
 
 @section('contenido')
     @if($zona)
-        <h1>Zona 110{{$zona->id}}</h1>
+        <h1>Zona S1-{{$zona->id}}</h1>
         <h2>{{$zona->entidad_tipo}}</h2>
         <h3>{{$zona->zonable_id}}</h3>
         <p>{{$zona->body}}</p>

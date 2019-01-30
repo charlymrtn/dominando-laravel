@@ -91,6 +91,7 @@ class ZonasController extends Controller
     public function show(Zona $zona)
     {
         //
+        return view('zonas.show',compact('zona'));
     }
 
     /**
@@ -102,6 +103,7 @@ class ZonasController extends Controller
     public function edit(Zona $zona)
     {
         //
+        return view('zonas.formulario',compact('zona'));
     }
 
     /**
@@ -114,6 +116,12 @@ class ZonasController extends Controller
     public function update(Request $request, Zona $zona)
     {
         //
+        $data = $request->only('key','name');
+
+        $zona->update($data);
+
+        return redirect()->route('zonas.index')
+            ->with('info','la zona fue editado correctamente :)');
     }
 
     /**
@@ -125,5 +133,15 @@ class ZonasController extends Controller
     public function destroy(Zona $zona)
     {
         //
+        try{
+            $zona->delete();
+
+            return redirect()->route('zonas.index')
+                ->with('info','la zona fue eliminado correctamente :)');
+
+        }catch (\Exception $e){
+
+            return back()->with('error',$e->getCode().' '.$e->getMessage());
+        }
     }
 }

@@ -24,6 +24,6 @@ class Zona extends Model
 
     public function entidad()
     {
-        return $this->belongsTo($this->notable_type,'zonable_id','id');
+        return $this->belongsTo($this->zonable_type,'zonable_id','id');
     }
 }

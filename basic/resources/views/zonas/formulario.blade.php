@@ -29,9 +29,16 @@
                 </label>
             </p>
             <p>
-                <label for="identificador">Identificador
-                    <input class="form-control" type="text" name="identificador" value="{{$zona->zonable_id}}" readonly>
-                </label>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$zona->entidad_tipo}} {{$zona->entidad->id}}</h5>
+                        <p class="card-text">{{$zona->entidad->key}}</p>
+                        <p class="card-text">{{$zona->entidad->name}}</p>
+                        <p class="card-text">{{$zona->entidad->description}}</p>
+                        <a href="{{route($zona->entidad_tipo == 'Perfil' ? 'perfiles.show' : 'roles.show',$zona->entidad->id)}}"
+                           class="btn btn-primary">Ver Entidad</a>
+                    </div>
+                </div>
             </p>
         @else
             <p>
