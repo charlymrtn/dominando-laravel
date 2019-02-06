@@ -22,7 +22,7 @@ class UsuariosController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','check.role:admin'])->only('index','show','edit','update');
+        $this->middleware(['auth','check.role:A'])->only('index','show','edit','update');
     }
 
     /**

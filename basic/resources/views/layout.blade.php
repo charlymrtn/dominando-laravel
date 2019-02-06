@@ -34,7 +34,7 @@
                         <li class="nav-item {{active('mensajes*')}}">
                             <a class="nav-link" href="{{route('mensajes.index')}}">Mensajes</a>
                         </li>
-                        @if(Auth::user()->hasRoles(['admin']))
+                        @if(Auth::user()->hasRoles(['A']))
 
                             <div class="btn-group">
                                 <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
