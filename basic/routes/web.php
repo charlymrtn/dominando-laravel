@@ -44,6 +44,10 @@ Route::resource('zonas','ZonasController')->parameters([
     'zonas' => 'zona'
 ]);
 
+Route::resource('etiquetas','TagsController')->parameters([
+    'etiquetas' => 'etiqueta'
+]);
+
 Route::get('login','Auth\LoginController@showLoginForm')->name('login');
 Route::post('login','Auth\LoginController@login')->name('login.post');
 Route::get('register','Auth\RegisterController@showRegistrationForm')->name('register');

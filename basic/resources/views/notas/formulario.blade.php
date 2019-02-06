@@ -21,8 +21,6 @@
         @csrf
         @if(isset($nota))
             @method('put')
-        @endif
-        @if(isset($nota))
             <p>
                 <label for="entidad">Entidad
                     <input class="form-control" type="text" name="entidad" value="{{$nota->entidad_tipo}}" readonly>

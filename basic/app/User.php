@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\Tag;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -76,5 +78,10 @@ class User extends Authenticatable
     public function notas()
     {
         return $this->morphMany('App\Models\Nota','notable','notable_type','notable_id','id');
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class,'tagglable','taggables');
     }
 }

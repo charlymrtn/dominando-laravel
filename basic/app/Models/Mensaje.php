@@ -21,6 +21,11 @@ class Mensaje extends Model
         return $this->morphMany('App\Models\Nota','notable','notable_type','notable_id','id');
     }
 
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class,'tagglable','taggables');
+    }
+
     public function getNameAttribute()
     {
         return $this->nombre;
