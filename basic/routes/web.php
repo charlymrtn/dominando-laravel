@@ -11,6 +11,10 @@
 |
 */
 
+//DB::listen(function ($query){
+//    echo "<pre>{$query->sql}</pre>";
+//});
+
 Route::get('/', 'PagesController@home')->name('index');
 
 Route::get('saludos/{nombre?}','PagesController@saludo')->where('nombre',"[A-Aa-z]+")->name('saludo');

@@ -28,7 +28,7 @@ class MensajesControllerV2 extends Controller
     public function index()
     {
         //
-        $mensajes = Mensaje::all();
+        $mensajes = Mensaje::with('usuario','notas')->get();
 
         return view('mensajes.index',compact('mensajes'));
     }

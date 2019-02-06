@@ -32,7 +32,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = User::all();
+        $usuarios = User::with('role','perfiles','notas')->get();
 
         return view('usuarios.index',compact('usuarios'));
     }
