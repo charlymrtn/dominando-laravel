@@ -93,7 +93,9 @@ class MensajesControllerV2 extends Controller
     public function edit(Mensaje $mensaje)
     {
         //
+
         $tags = Tag::all();
+
         return view('mensajes.formulario',compact('mensaje','tags'));
     }
 

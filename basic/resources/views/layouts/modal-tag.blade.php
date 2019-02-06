@@ -14,7 +14,7 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="InputSelect1">Nota</label>
+                        <label for="InputSelect1">Etiqueta</label>
                         <select name="tag" id="tag" class="form-control">
                             <option value="" disabled>selecciona una etiqueta</option>
                             @foreach($tags as $tag)

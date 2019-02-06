@@ -95,6 +95,7 @@ class UsuariosController extends Controller
             $this->authorize($usuario);
             $roles = Role::all();
             $tags = Tag::all();
+
             $perfiles = Perfil::pluck('name','id');
 
             return view('usuarios.formulario',compact('usuario','roles','perfiles','tags'));

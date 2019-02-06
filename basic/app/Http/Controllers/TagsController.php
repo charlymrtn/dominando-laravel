@@ -182,8 +182,15 @@ class TagsController extends Controller
 
         $tag = Tag::find($request->only('tag'))->first();
 
-        $entidad->tags()->save($tag);
+        if (!$entidad->tags->contains($tag->id))
+        {
+            $entidad->tags()->save($tag);
 
-        return redirect()->route($modelo === 'mensajes'?'mensajes.edit':'usuarios.edit',$entidad->id)->with('info','etiqueta agregada correctamente');
-    }
+            return redirect()->route($modelo === 'mensajes'?'mensajes.edit':'usuarios.edit',$entidad->id)->with('info','etiqueta agregada correctamente');
+
+        }else{
+            return back()->with('error','este usuario ya tiene asignado esta etiqueta');
+        }
+
+       }
 }

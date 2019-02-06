@@ -11,9 +11,13 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
             Agregar nota
         </button>
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addTagModal">
-            Agregar etiqueta
-        </button>
+        @if($tags->count()>0)
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addTagModal">
+                Agregar etiqueta
+            </button>
+        @else
+            <span class="alert-info">este usuario tiene asignado todas las etiquetas</span>
+        @endif
         <br>
     @endif
 
@@ -153,6 +157,9 @@
 
     @if(isset($usuario))
         @include('layouts.modal-nota')
-        @include('layouts.modal-tag')
+
+        @if($tags->count()>0)
+            @include('layouts.modal-tag')
+        @endif
     @endif
 @stop
