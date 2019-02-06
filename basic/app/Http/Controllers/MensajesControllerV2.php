@@ -7,6 +7,8 @@ use App\Models\Mensaje;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Mail;
+
 class MensajesControllerV2 extends Controller
 {
 
@@ -61,11 +63,15 @@ class MensajesControllerV2 extends Controller
                 'correo' => auth()->user()->email
             ]);
 
-            auth()->user()->mensajes()->create($data);
+            $message = auth()->user()->mensajes()->create($data);
 
         }else{
-            Mensaje::create($data);
+            $message = Mensaje::create($data);
         }
+
+        Mail::send('emails.contact',['mensaje' => $message],function ($m) use($message){
+            $m->to($message->email, $message->name)->subject('tu mensaje fue recibido');
+        });
 
         return redirect()->route('mensajes.create')
             ->with('info','tu mensaje fue enviado correctamente :)');
