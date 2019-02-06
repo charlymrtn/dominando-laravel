@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateMessageRequest;
 use App\Models\Mensaje;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class MensajesControllerV2 extends Controller
@@ -92,7 +93,8 @@ class MensajesControllerV2 extends Controller
     public function edit(Mensaje $mensaje)
     {
         //
-        return view('mensajes.formulario',compact('mensaje'));
+        $tags = Tag::all();
+        return view('mensajes.formulario',compact('mensaje','tags'));
     }
 
     /**

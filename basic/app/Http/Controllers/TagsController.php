@@ -6,6 +6,7 @@ use App\Models\Mensaje;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Validator;
 
 class TagsController extends Controller
 {
@@ -142,5 +143,47 @@ class TagsController extends Controller
 
             return back()->with('error',$e->getCode().' '.$e->getMessage());
         }
+    }
+
+    public function attach(Request $request, int $id)
+    {
+        //
+        $request->merge([
+            'identifier' => $id
+        ]);
+        $validator = Validator::make($request->all(),
+            [
+                'tag' => 'required|string',
+                'model' => 'required|string|in:mensajes,users',
+                'identifier' => 'required|numeric|exists:'.$request->input('model').',id'
+            ],
+            [
+                'tag.required' => 'La etiqueta es requerido',
+                'model.required' => 'el modelo es requerido',
+                'model.in' => 'el modelo no es válido',
+                'identifier.required' => 'el id es obligatorio',
+                'identifier.exists' => 'el id no existe',
+            ]
+        );
+
+        if ($validator->fails())
+        {
+            return back()->withErrors($validator->errors());
+        }
+
+        if ($request->input('model')) $modelo = $request->input('model');
+
+        if($modelo === 'mensajes')
+        {
+            $entidad = Mensaje::findOrFail($id);
+        }elseif ($modelo === 'users'){
+            $entidad = User::findOrFail ($id);
+        }
+
+        $tag = Tag::find($request->only('tag'))->first();
+
+        $entidad->tags()->save($tag);
+
+        return redirect()->route($modelo === 'mensajes'?'mensajes.edit':'usuarios.edit',$entidad->id)->with('info','etiqueta agregada correctamente');
     }
 }

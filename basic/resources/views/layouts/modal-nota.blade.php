@@ -14,8 +14,8 @@
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nota</label>
-                        <input type="text" class="form-control" id="exampleInputText" name="body" aria-describedby="textHelp" placeholder="Agrega una nota">
+                        <label for="InputText1">Nota</label>
+                        <input type="text" class="form-control" id="InputText1" name="body" aria-describedby="textHelp" placeholder="Agrega una nota">
                     </div>
 
                 </div>

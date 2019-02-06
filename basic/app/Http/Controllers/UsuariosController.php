@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\Perfil;
 use App\Models\Role;
+use App\Models\Tag;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -93,9 +94,10 @@ class UsuariosController extends Controller
         try {
             $this->authorize($usuario);
             $roles = Role::all();
+            $tags = Tag::all();
             $perfiles = Perfil::pluck('name','id');
 
-            return view('usuarios.formulario',compact('usuario','roles','perfiles'));
+            return view('usuarios.formulario',compact('usuario','roles','perfiles','tags'));
         } catch (AuthorizationException $e) {
             return redirect()->route('usuarios.index')->with('error',$e->getMessage());
         }

@@ -35,6 +35,7 @@ Route::resource('perfiles','PerfilesController')->parameters([
 ]);
 
 Route::post('notas/{entityId}/attach','NotasController@attach')->name('notas.attach');
+Route::post('etiquetas/{entityId}/attach','TagsController@attach')->name('etiquetas.attach');
 
 Route::resource('notas','NotasController')->parameters([
     'notas' => 'nota'

@@ -11,6 +11,9 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
             Agregar nota
         </button>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addTagModal">
+            Agregar etiqueta
+        </button>
         <br>
     @endif
 
@@ -68,7 +71,8 @@
     </form>
 
     @if(isset($mensaje))
-        @include('layouts.modal')
+        @include('layouts.modal-nota')
+        @include('layouts.modal-tag')
     @endif
 @stop
 
