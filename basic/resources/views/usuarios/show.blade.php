@@ -8,6 +8,10 @@
         <h2>{{$usuario->email}}</h2>
         <h3>{{$usuario->name}}</h3>
         <p>{{$usuario->role->name}}</p>
+        @can('edit',$usuario)
+            <a href="{{route('usuarios.edit',$usuario->id)}}" class="btn btn-primary pull-right">Editar</a>
+            <br>
+        @endcan
         <br>
         <h4>Perfiles del usuario {{$usuario->name}}</h4>
         <table class="table">
@@ -46,11 +50,25 @@
             @endforeach
             </tbody>
         </table>
+        <br>
+        <h4>etiquetas del usuario {{$usuario->name}}</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($usuario->tags as $tag)
+                <tr>
+                    <th scope="row">{{$tag->id}}</th>
+                    <td>{{$tag->name}}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
 
-        @can('edit',$usuario)
-            <a href="{{route('usuarios.edit',$usuario->id)}}" class="btn btn-primary">Editar</a>
-            <br>
-        @endcan
     @else
         <h3>no existe este elemento</h3>
     @endif

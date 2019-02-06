@@ -26,6 +26,24 @@
             @endforeach
             </tbody>
         </table>
+        <br>
+        <h4>etiquetas del mensaje</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($mensaje->tags as $tag)
+                <tr>
+                    <th scope="row">{{$tag->id}}</th>
+                    <td>{{$tag->name}}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
 
     @else
         <h3>no existe este elemento</h3>

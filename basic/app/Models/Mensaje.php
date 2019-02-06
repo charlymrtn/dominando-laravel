@@ -23,7 +23,7 @@ class Mensaje extends Model
 
     public function tags()
     {
-        return $this->morphToMany(Tag::class,'tagglable','taggables');
+        return $this->morphToMany(Tag::class,'tagglable','taggables')->withTimestamps();
     }
 
     public function getNameAttribute()

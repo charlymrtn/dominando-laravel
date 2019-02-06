@@ -82,6 +82,6 @@ class User extends Authenticatable
 
     public function tags()
     {
-        return $this->morphToMany(Tag::class,'tagglable','taggables');
+        return $this->morphToMany(Tag::class,'tagglable','taggables')->withTimestamps();
     }
 }

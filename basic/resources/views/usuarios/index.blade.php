@@ -39,7 +39,9 @@
                         </a>
                     </td>
                     <td>
-                        {{$usuario->name}}
+                        <a href="{{route('usuarios.show',$usuario->id)}}">
+                            {{$usuario->name}}
+                        </a>
                     </td>
                     <td>
                         {{$usuario->email}}
