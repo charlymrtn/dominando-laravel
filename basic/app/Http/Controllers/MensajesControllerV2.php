@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageWasReceived;
 use App\Http\Requests\CreateMessageRequest;
 use App\Models\Mensaje;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Mail;
 
 class MensajesControllerV2 extends Controller
 {
@@ -69,9 +69,7 @@ class MensajesControllerV2 extends Controller
             $message = Mensaje::create($data);
         }
 
-        Mail::send('emails.contact',['mensaje' => $message],function ($m) use($message){
-            $m->to($message->email, $message->name)->subject('tu mensaje fue recibido');
-        });
+        event(new MessageWasReceived($message));
 
         return redirect()->route('mensajes.create')
             ->with('info','tu mensaje fue enviado correctamente :)');
